@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+# This script prints "bad luck" 4th iteration "good luck" on 8th iteration "Best School" on other iteration
+n=1
+
+while [ $n -le 10 ]
+do
+    if [ $n == 4 ]
+    then
+        echo "bad luck"
+    elif [ $n == 8 ]
+    then
+        echo "good luck"
+    else
+        echo "Best School"
+    fi
+    (( n++ ))
+done
