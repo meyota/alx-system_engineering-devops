@@ -4,26 +4,22 @@
 # When both a domain and subdomain are passed, information for the specified domain is printed.
 # Usage: ./0-world_wide_web [DOMAIN] [optional SUBDOMAIN]
 
+get_domain() {
 
-# variables & parameters
-subdomains=( "www" "lb-01" "web-01" "web-02" )
-domain="$1"
-sub="$2"
 
-dig_cmd () {
-	# func variables
-	sub="$2"
-	INFO="$(dig "$sub.$domain" | grep -A1 'ANSWER SECTION:' | awk 'NR==2')"
-	IP=$(echo "$INFO" | awk '{print $5}')
-	RECORD=$(echo "$INFO" | awk '{print $4}')
+    record=$(dig "$2.$1" | grep -A1 'ANSWER SECTION:' | awk '{printf "%s", $4}')
+    ip=$(dig "$2.$1" | grep -A1 'ANSWER SECTION:' | awk '{printf "%s", $5}')
+    printf "The subdomain %s is a %s record and points to %s\n" "$2" "$record" "$ip" 
 
-	echo -e "The subdomain $sub is a $RECORD record and points to $IP"
 }
 
-if [ $# -eq 1 ]; then
-	for subs in "${subdomains[@]}"; do
-		dig_cmd "$domain" "$subs"
-	done
-elif [ $# -eq 2 ]; then
-	dig_cmd "$domain" "$sub"
+
+
+if [ -z "$2" ]; then
+    for sub in "www" "lb-01" "web-01" "web-02"
+    do
+	get_domain "$1" "$sub"
+    done
+else
+    get_domain "$1" "$2"
 fi
