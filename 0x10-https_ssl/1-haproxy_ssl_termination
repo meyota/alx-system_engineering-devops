@@ -33,12 +33,14 @@ defaults
         errorfile 503 /etc/haproxy/errors/503.http
         errorfile 504 /etc/haproxy/errors/504.http
 
-listen	balancer
-	# frontend config settings
-	bind :80
-	bind *:443 ssl crt /etc/letsencrypt/live/lb-01.tayota.tech/fullchain.pem
+frontend http_front
+        bind *:80
+        bind *:443 ssl crt /etc/letsencrypt/live/www.tayota.tech/fullchain.pem
+        http-request redirect scheme https unless { ssl_fc }
+        stats uri /haproxy?stats
+        default_backend http_back
 
-	# backend config settings
-	balance roundrobin
-	server 30505-web-01 100.25.168.56:80 check
-	server 30505-web-02 54.144.45.9:80 check
+backend http_back
+        balance roundrobin
+        server 30505-web-01 100.25.168.56:80 check
+        server 30505-web-02 54.144.45.9:80 check
