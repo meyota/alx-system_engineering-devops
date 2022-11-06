@@ -36,7 +36,7 @@ defaults
 listen	balancer
 	# frontend config settings
 	bind :80
-	bind *:443 ssl crt /etc/letsencrypt/live/www.tayota.tech/fullchain.pem
+	bind *:443 ssl crt /etc/letsencrypt/live/lb-01.tayota.tech/fullchain.pem
 
 	# backend config settings
 	balance roundrobin
