@@ -1,0 +1,88 @@
+[34m
+* Datadog Agent 7 install script v1.11.0
+[0m
+[34m
+* Installing apt-transport-https, curl and gnupg
+[0m
+Hit:1 http://us-east-1.ec2.archive.ubuntu.com/ubuntu focal InRelease
+Hit:2 http://us-east-1.ec2.archive.ubuntu.com/ubuntu focal-updates InRelease
+Hit:3 http://us-east-1.ec2.archive.ubuntu.com/ubuntu focal-backports InRelease
+Hit:4 http://repo.mysql.com/apt/ubuntu bionic InRelease
+Get:5 http://security.ubuntu.com/ubuntu focal-security InRelease [114 kB]
+Get:6 http://security.ubuntu.com/ubuntu focal-security/main amd64 Packages [1885 kB]
+Get:7 http://security.ubuntu.com/ubuntu focal-security/main amd64 c-n-f Metadata [11.4 kB]
+Get:8 http://security.ubuntu.com/ubuntu focal-security/universe amd64 Packages [777 kB]
+Get:9 http://security.ubuntu.com/ubuntu focal-security/universe amd64 c-n-f Metadata [16.8 kB]
+Fetched 2804 kB in 2s (1231 kB/s)
+Reading package lists...
+Reading package lists...
+Building dependency tree...
+Reading state information...
+curl is already the newest version (7.68.0-1ubuntu2.14).
+curl set to manually installed.
+gnupg is already the newest version (2.2.19-3ubuntu2.2).
+gnupg set to manually installed.
+The following NEW packages will be installed:
+  apt-transport-https
+0 upgraded, 1 newly installed, 0 to remove and 27 not upgraded.
+2 not fully installed or removed.
+Need to get 1704 B of archives.
+After this operation, 162 kB of additional disk space will be used.
+Get:1 http://us-east-1.ec2.archive.ubuntu.com/ubuntu focal-updates/universe amd64 apt-transport-https all 2.0.9 [1704 B]
+Fetched 1704 B in 0s (106 kB/s)
+Selecting previously unselected package apt-transport-https.
+(Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 97547 files and directories currently installed.)
+Preparing to unpack .../apt-transport-https_2.0.9_all.deb ...
+Unpacking apt-transport-https (2.0.9) ...
+Setting up nginx-core (1.18.0-0ubuntu1.4) ...
+Job for nginx.service failed because the control process exited with error code.
+See "systemctl status nginx.service" and "journalctl -xe" for details.
+invoke-rc.d: initscript nginx, action "start" failed.
+[0;1;31m●[0m nginx.service - A high performance web server and a reverse proxy server
+     Loaded: loaded (]8;;file://30505-web-01/lib/systemd/system/nginx.service/lib/systemd/system/nginx.service]8;;; enabled; vendor preset: enabled)
+     Active: [0;1;31mfailed[0m (Result: exit-code) since Thu 2022-12-01 19:36:45 UTC; 9ms ago
+       Docs: ]8;;man:nginx(8)man:nginx(8)]8;;
+    Process: 218153 ExecStartPre=/usr/sbin/nginx -t -q -g daemon on; master_process on; [0;1;31m(code=exited, status=1/FAILURE)[0m
+
+Dec 01 19:36:44 30505-web-01 systemd[1]: Starting A high performance web server and a reverse proxy server...
+Dec 01 19:36:45 30505-web-01 nginx[218153]: nginx: [emerg] open() "/etc/nginx/nginx.conf" failed (2: No such file or directory)
+Dec 01 19:36:45 30505-web-01 nginx[218153]: nginx: configuration file /etc/nginx/nginx.conf test failed
+Dec 01 19:36:45 30505-web-01 systemd[1]: [0;1;39m[0;1;31m[0;1;39mnginx.service: Control process exited, code=exited, status=1/FAILURE[0m
+Dec 01 19:36:45 30505-web-01 systemd[1]: [0;1;38;5;185m[0;1;39m[0;1;38;5;185mnginx.service: Failed with result 'exit-code'.[0m
+Dec 01 19:36:45 30505-web-01 systemd[1]: [0;1;31m[0;1;39m[0;1;31mFailed to start A high performance web server and a reverse proxy server.[0m
+dpkg: error processing package nginx-core (--configure):
+ installed nginx-core package post-installation script subprocess returned error exit status 1
+Setting up apt-transport-https (2.0.9) ...
+dpkg: dependency problems prevent configuration of nginx:
+ nginx depends on nginx-core (<< 1.18.0-0ubuntu1.4.1~) | nginx-full (<< 1.18.0-0ubuntu1.4.1~) | nginx-light (<< 1.18.0-0ubuntu1.4.1~) | nginx-extras (<< 1.18.0-0ubuntu1.4.1~); however:
+  Package nginx-core is not configured yet.
+  Package nginx-full is not installed.
+  Package nginx-light is not installed.
+  Package nginx-extras is not installed.
+ nginx depends on nginx-core (>= 1.18.0-0ubuntu1.4) | nginx-full (>= 1.18.0-0ubuntu1.4) | nginx-light (>= 1.18.0-0ubuntu1.4) | nginx-extras (>= 1.18.0-0ubuntu1.4); however:
+  Package nginx-core is not configured yet.
+  Package nginx-full is not installed.
+  Package nginx-light is not installed.
+  Package nginx-extras is not installed.
+
+dpkg: error processing package nginx (--configure):
+ dependency problems - leaving unconfigured
+No apport report written because the error message indicates its a followup error from a previous failure.
+Errors were encountered while processing:
+ nginx-core
+ nginx
+E: Sub-process /usr/bin/dpkg returned an error code (1)
+[31m
+It looks like you hit an issue when trying to install the Datadog Agent.
+
+Troubleshooting and basic usage information for the Datadog Agent are available at:
+
+    https://docs.datadoghq.com/agent/basic_agent_usage/
+[0m
+Do you want to send a failure report to Datadog (including ddagent-install.log)? (y/[n]) Enter an email address so we can follow up: [33m(1/3) Email address invalid: [0m
+
+Enter an email address so we can follow up: OKA notification has been sent to Datadog with the contents of ddagent-install.log
+
+If you are still having problems, please send an email to support@datadoghq.com
+with the contents of ddagent-install.log and any information you think would be
+useful and we will do our very best to help you solve your problem.
